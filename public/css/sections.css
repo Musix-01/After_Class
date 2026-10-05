@@ -1,0 +1,517 @@
+/* =========================================
+   AFTER CLASS – student sections
+   Announcements, filter chips, memory capsules, mysteries, report panel.
+   Loaded after wall.css.
+========================================= */
+
+/* ---------- Small shared bits ---------- */
+
+.admin-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+
+    padding: 1px 8px;
+
+    color: var(--bg-navy);
+    background: var(--accent-yellow);
+    border-radius: 20px;
+
+    font-family: var(--body-font);
+    font-size: 0.68rem;
+    font-weight: 800;
+}
+
+.nav-link.nav-admin {
+    color: var(--eraser-pink);
+}
+
+.nav-link.nav-admin:hover {
+    color: var(--bg-navy);
+    background: var(--eraser-pink);
+}
+
+.eyebrow {
+    margin-bottom: 8px;
+
+    color: var(--accent-yellow);
+    font-family: var(--body-font);
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+
+.section-gap {
+    margin-top: 40px;
+}
+
+.status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 2px 11px;
+
+    border: 1px solid transparent;
+    border-radius: 20px;
+
+    font-family: var(--body-font);
+    font-size: 0.75rem;
+    font-weight: 800;
+}
+
+.status-open     { color: var(--moon-glow);   background: rgba(205, 218, 253, 0.14); border-color: rgba(205, 218, 253, 0.4); }
+.status-solved   { color: #cfe8b0;            background: rgba(111, 143, 77, 0.3);   border-color: rgba(111, 143, 77, 0.7); }
+.status-debunked { color: var(--eraser-pink); background: rgba(244, 167, 160, 0.16); border-color: rgba(244, 167, 160, 0.5); }
+
+/* ---------- Filter chips ---------- */
+
+.chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.chip {
+    padding: 7px 14px;
+
+    color: var(--moon-glow);
+    border: 1px solid var(--border-light);
+    border-radius: 30px;
+
+    font-size: 0.9rem;
+    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.chip:hover {
+    color: var(--text-light);
+    border-color: var(--moon-glow);
+}
+
+.chip.active {
+    color: var(--bg-navy);
+    background: var(--accent-yellow);
+    border-color: var(--accent-yellow);
+    font-weight: 700;
+}
+
+/* ---------- Pinned posts + announcements ---------- */
+
+.post.is-pinned {
+    box-shadow: inset 0 0 0 1px rgba(249, 215, 28, 0.3);
+}
+
+.pin-flag {
+    color: var(--accent-yellow);
+}
+
+.announcement {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+
+    margin-bottom: 14px;
+    padding: 14px 16px;
+
+    background: rgba(249, 215, 28, 0.1);
+    border: 1px solid rgba(249, 215, 28, 0.4);
+    border-radius: 16px;
+}
+
+.announcement > i {
+    margin-top: 3px;
+    color: var(--accent-yellow);
+    font-size: 1.15rem;
+}
+
+.announcement strong {
+    color: var(--soft-yellow);
+}
+
+.announcement p {
+    margin-top: 2px;
+    color: rgba(248, 249, 250, 0.84);
+    font-family: var(--body-font);
+    font-size: 0.92rem;
+    line-height: 1.55;
+}
+
+.announcement-close {
+    margin-left: auto;
+    flex-shrink: 0;
+
+    width: 30px;
+    height: 30px;
+
+    color: rgba(248, 249, 250, 0.6);
+    background: transparent;
+    border: 0;
+    border-radius: 8px;
+}
+
+.announcement-close:hover {
+    color: var(--bg-navy);
+    background: var(--accent-yellow);
+}
+
+/* ---------- Report panel ---------- */
+
+.panel-label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--moon-glow);
+    font-size: 0.92rem;
+}
+
+.panel-select {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px 12px;
+
+    color: var(--text-dark);
+    background: var(--input-gray);
+    border: 2px solid transparent;
+    border-radius: 12px;
+
+    font-family: var(--body-font);
+}
+
+.panel-hint {
+    color: var(--text-muted);
+    font-family: var(--body-font);
+    font-size: 0.8rem;
+}
+
+/* ---------- Page intro + cards ---------- */
+
+.page-intro {
+    margin-bottom: 28px;
+}
+
+.page-intro h1 {
+    color: var(--soft-yellow);
+    font-size: clamp(1.7rem, 4.6vw, 2.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+}
+
+.page-intro p {
+    margin-top: 6px;
+    color: var(--text-muted);
+    font-family: var(--body-font);
+}
+
+.card-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* ---------- Memory capsules ---------- */
+
+.capsule {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    padding: 16px 18px;
+
+    background: var(--bg-sky);
+    border: 1px solid var(--border-light);
+    border-radius: 18px;
+
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.capsule:hover {
+    border-color: rgba(249, 215, 28, 0.45);
+    transform: translateY(-1px);
+}
+
+.capsule-locked {
+    border-style: dashed;
+}
+
+.capsule-icon {
+    flex-shrink: 0;
+
+    width: 46px;
+    height: 46px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 14px;
+    font-size: 1.15rem;
+}
+
+.capsule-open .capsule-icon   { color: var(--text-light); background: var(--leaf-green); }
+.capsule-locked .capsule-icon { color: var(--bg-navy);    background: var(--accent-yellow); }
+
+.capsule-body {
+    flex: 1;
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.capsule-body strong {
+    color: var(--text-light);
+    font-size: 1.12rem;
+}
+
+.capsule-body small {
+    color: var(--text-muted);
+    font-family: var(--body-font);
+    font-size: 0.8rem;
+}
+
+.capsule-excerpt {
+    margin-top: 4px;
+
+    color: rgba(248, 249, 250, 0.74);
+    font-family: var(--body-font);
+    font-size: 0.9rem;
+    line-height: 1.55;
+}
+
+.capsule-go {
+    color: var(--moon-glow);
+    opacity: 0.6;
+}
+
+.capsule-page,
+.case {
+    padding: 24px;
+
+    background: var(--bg-sky);
+    border: 1px solid var(--border-light);
+    border-radius: 20px;
+}
+
+.capsule-page h1,
+.case h1 {
+    margin-bottom: 14px;
+
+    color: var(--soft-yellow);
+    font-size: clamp(1.6rem, 4.4vw, 2.3rem);
+    line-height: 1.1;
+}
+
+.capsule-photo {
+    width: 100%;
+    max-height: 480px;
+    margin: 4px 0 16px;
+    object-fit: cover;
+    border-radius: 14px;
+}
+
+.capsule-text {
+    color: rgba(248, 249, 250, 0.9);
+    font-family: var(--body-font);
+    line-height: 1.75;
+    overflow-wrap: anywhere;
+}
+
+.sealed {
+    padding: 56px 24px;
+    text-align: center;
+
+    background: var(--bg-sky);
+    border: 2px dashed rgba(249, 215, 28, 0.4);
+    border-radius: 22px;
+}
+
+.sealed-icon {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 16px;
+
+    display: grid;
+    place-items: center;
+
+    color: var(--bg-navy);
+    background: var(--accent-yellow);
+    border-radius: 50%;
+    font-size: 1.7rem;
+
+    box-shadow: 5px 5px 0 rgba(249, 215, 28, 0.2);
+}
+
+.sealed h1 {
+    margin-bottom: 8px;
+    color: var(--soft-yellow);
+    font-size: clamp(1.5rem, 4vw, 2.1rem);
+}
+
+.sealed p {
+    color: var(--text-muted);
+    font-family: var(--body-font);
+}
+
+.sealed .sealed-date {
+    margin-top: 6px;
+    color: var(--accent-yellow);
+    font-family: 'Baloo 2', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+}
+
+/* ---------- Mysteries ---------- */
+
+.mystery-card {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    padding: 18px 20px;
+
+    background: var(--bg-sky);
+    border: 1px solid var(--border-light);
+    border-radius: 18px;
+
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.mystery-card:hover {
+    border-color: rgba(205, 218, 253, 0.5);
+    transform: translateY(-1px);
+}
+
+.mystery-top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 12px;
+    margin-bottom: 8px;
+}
+
+.mystery-where {
+    color: var(--text-muted);
+    font-family: var(--body-font);
+    font-size: 0.82rem;
+}
+
+.mystery-title {
+    color: var(--text-light);
+    font-size: 1.25rem;
+    line-height: 1.2;
+}
+
+.mystery-meta {
+    display: flex;
+    gap: 16px;
+    margin-top: 6px;
+
+    color: var(--moon-glow);
+    font-family: var(--body-font);
+    font-size: 0.82rem;
+}
+
+.verdict {
+    margin-top: 18px;
+    padding: 18px 20px;
+
+    border: 1px solid;
+    border-radius: 18px;
+}
+
+.verdict-solved   { background: rgba(111, 143, 77, 0.16);  border-color: rgba(111, 143, 77, 0.6); }
+.verdict-debunked { background: rgba(244, 167, 160, 0.12); border-color: rgba(244, 167, 160, 0.5); }
+
+.clue-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.clue-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+
+    padding: 12px 14px;
+
+    background: var(--bg-sky);
+    border: 1px solid var(--border-light);
+    border-radius: 14px;
+}
+
+.clue-no {
+    flex-shrink: 0;
+
+    width: 28px;
+    height: 28px;
+
+    display: grid;
+    place-items: center;
+
+    color: var(--bg-navy);
+    background: var(--moon-glow);
+    border-radius: 50%;
+    font-size: 0.82rem;
+    font-weight: 800;
+}
+
+.clue-list p {
+    flex: 1;
+    color: rgba(248, 249, 250, 0.9);
+    font-family: var(--body-font);
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+.clue-list .clue-empty {
+    display: block;
+    color: var(--text-muted);
+    font-family: var(--body-font);
+    font-size: 0.9rem;
+    border-style: dashed;
+}
+
+.theory-form {
+    margin-bottom: 16px;
+}
+
+.theory-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.theory {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+
+    padding: 14px;
+
+    background: var(--bg-sky);
+    border: 1px solid var(--border-light);
+    border-radius: 14px;
+}
+
+.theory-accepted {
+    border-color: rgba(111, 143, 77, 0.8);
+    background: rgba(111, 143, 77, 0.14);
+}
+
+@media (max-width: 700px) {
+    .capsule {
+        padding: 14px;
+        gap: 12px;
+    }
+
+    .capsule-page,
+    .case {
+        padding: 18px;
+    }
+
+    .sealed {
+        padding: 40px 18px;
+    }
+}

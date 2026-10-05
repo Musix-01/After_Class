@@ -1,0 +1,183 @@
+:root {
+    --bg-blue: #102552;
+    --circle-pink: #fadde3;
+    --card-yellow: #fdf3b8;
+    --input-gray: #dcdcdc;
+    --input-gray-text: #9a9a9a;
+    --button-green: #6f8f4d;
+    --title-yellow: #f7efc2;
+    --link-coral: #f4a7a0;
+    --glitch-b: #2ee6d6;
+
+    /* Core Theme */
+    --bg-navy: #0d1b2a;        /* deep midnight blue background */
+    --bg-sky: #1b263b;         /* softer blue for cards/sections */
+    --accent-yellow: #f9d71c;  /* bright pencil yellow highlight */
+    --soft-yellow: #fdf3b8;    /* gentle cream yellow for titles */
+
+    /* Pops of Color */
+    --moon-glow: #cddafd;      /* pale glowing blue for accents */
+    --eraser-pink: #f4a7a0;    /* coral/pink pop (like pencil erasers) */
+    --leaf-green: #6f8f4d;     /* muted green for buttons */
+    --star-orange: #ffb347;    /* warm orange for hover states */
+
+    /* Neutral Support */
+    --input-gray: #dcdcdc;
+    --input-gray-text: #9a9a9a;
+    --text-light: #f8f9fa; 
+    --text-dark: #212529;
+}
+
+* { box-sizing: border-box; }
+
+.Title {
+    font-family: 'Baloo 2', cursive;
+    font-size: 2rem;
+    color: var(--title-cream);
+    text-shadow: 0 3px 0 rgba(0,0,0,0.08);
+    margin-bottom: 20px;
+}
+
+.Title {
+    margin: 10px 0 0 0;
+    font-size: 1.2rem;
+    color: #ffffff;
+    padding: 0px 70px;
+    border-radius: 10px;
+    width: 50%;
+    overflow-wrap: break-word;
+    text-align: left;
+    grid-column: 1 / -1;
+}
+
+.Title h1 {
+    font-size: 4rem;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(to right, #102552, #515210);
+    font-family: 'Baloo 2', cursive;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-box {
+    position: relative;
+    z-index: 1;
+    background: rgba(255, 241, 161, 0.491);
+    padding: 2rem 2.5rem;
+    border-radius: 18px;
+    width: 380px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
+
+.auth-box h1 {
+    margin: 0 0 40px 0;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--star-orange);
+    text-shadow: 0 3px 0 rgba(0,0,0,0.08);
+}
+
+.auth-box form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* Rounded input boxes */
+.auth-box input[type="text"],
+.auth-box input[type="email"],
+.auth-box input[type="password"] {
+    width: 100%;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 30px;
+    background: var(--input-gray);
+    font-size: 16px;
+    color: #4a4a4a;
+    outline: none;
+    transition: box-shadow 0.15s ease;
+}
+.auth-box input[type="text"]:focus,
+.auth-box input[type="email"]:focus,
+.auth-box input[type="password"]:focus {
+    box-shadow: 0 0 0 2px var(--glitch-b);
+}
+
+/* Submit button */
+.auth-box input[type="submit"] {
+    margin-top: 8px;
+    background: var(--button-green);
+    color: #fff;
+    border: none;
+    padding: 14px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.auth-box input[type="submit"]:hover {
+    background: #62813f;
+}
+
+/* Switch link */
+.switch {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #4a4a4a;
+}
+.switch a {
+    color: var(--link-coral);
+    font-weight: 700;
+    text-decoration: none;
+}
+.switch a:hover { text-decoration: underline; }
+
+.error-message {
+    margin-top: 6px;
+    font-size: 13px;
+    color: #d32f2f; /* red text */
+    text-align: left;
+    padding-left: 10px;
+}
+
+/* Birthday input styled like other inputs */
+.auth-box input[type="date"] {
+    width: 100%;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 30px;
+    background: var(--input-gray);
+    font-size: 16px;
+    color: #4a4a4a;
+    outline: none;
+    transition: box-shadow 0.15s ease;
+}
+.auth-box input[type="date"]:focus {
+    box-shadow: 0 0 0 2px var(--glitch-b);
+}
+
+/* Sign Up button styled like login submit */
+.auth-box button[type="submit"] {
+    margin-top: 8px;
+    background: var(--button-green);
+    color: #fff;
+    border: none;
+    padding: 14px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.auth-box button[type="submit"]:hover {
+    background: #62813f;
+}
