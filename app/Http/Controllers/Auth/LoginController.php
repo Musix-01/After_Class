@@ -16,20 +16,22 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'email' => ['required','email'],
+            'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            return redirect()->intended('/home');
+        if (!Auth::attempt($credentials)) {
+            return back()->withErrors([
+                'email' => 'Invalid credentials.',
+            ])->onlyInput('email');
         }
-        return Auth::user()->isAdmin()
-        ? redirect()->route('admin.dashboard')
-        : redirect()->intended(route('home'));
 
-        return back()->withErrors([
-            'email' => 'Invalid credentials.',
-        ]);
+        $request->session()->regenerate();
+
+        if (Auth::user()->isAdmin()) {
+            return redirect()->route('admin.dashboard');
+        }
+
+        return redirect()->intended(route('home'));
     }
 }
