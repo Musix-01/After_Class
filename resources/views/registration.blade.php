@@ -35,6 +35,6 @@
 
         <button type="submit">Sign Up</button>
     </form>
-    <p class="switch">Already have an account? <a href="{{ route('login.form') }}">Login</a></p>
+    <p class="switch">Already have an account? <a href="{{ route('login') }}">Login</a></p>
 </div>
 @endsection

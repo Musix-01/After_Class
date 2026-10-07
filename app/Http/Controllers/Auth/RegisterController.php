@@ -47,8 +47,6 @@ class RegisterController extends Controller
             'password' => Hash::make($validated['psw']),
         ]);
 
-        auth()->login($user);
-
-        return redirect()->intended('/home')->with('success', 'Account created! You are now logged in.');
+        return redirect()->route('login');
     }
 }

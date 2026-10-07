@@ -32,9 +32,27 @@
         $capsuleCreateUrl = $firstRoute(['capsules.create', 'memories.create']);
     @endphp
 
-    @include('partials.navbar')
+    @section('content')
 
-    <main class="wall-page" id="main">
+        @include('partials.navbar')
+
+        {{-- Cute background stars --}}
+        <div class="star-background" aria-hidden="true">
+            <span class="star star-1">✦</span>
+            <span class="star star-2">✧</span>
+            <span class="star star-3">⋆</span>
+            <span class="star star-4">✦</span>
+            <span class="star star-5">✧</span>
+            <span class="star star-6">⋆</span>
+            <span class="star star-7">✦</span>
+            <span class="star star-8">✧</span>
+            <span class="star star-9">⋆</span>
+            <span class="star star-10">✦</span>
+            <span class="star star-11">✧</span>
+            <span class="star star-12">⋆</span>
+        </div>
+
+        <main class="wall-page" id="main">
         <div class="column">
 
             {{-- Feedback --}}

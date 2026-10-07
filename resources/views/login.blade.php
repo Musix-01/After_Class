@@ -38,7 +38,7 @@
 </div>
 <div class="auth-box">
     <h1>Login</h1>
-    <form method="POST" action="{{ route('login') }}">
+    <form method="POST" action="{{ route('login.submit') }}">
         @csrf
         <input type="email" name="email" placeholder="Enter your email" required>
 
