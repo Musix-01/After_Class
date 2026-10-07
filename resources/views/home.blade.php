@@ -10,6 +10,28 @@
 
 @section('content')
 
+    @php
+        // "Good morning / afternoon / evening" (uses the timezone set in config/app.php)
+        $hour     = now()->hour;
+        $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good evening');
+
+        // Optional shortcut icons next to the composer. They only appear if the route exists.
+        $firstRoute = function (array $names) {
+            foreach ($names as $name) {
+                if (\Illuminate\Support\Facades\Route::has($name)) {
+                    try {
+                        return route($name);
+                    } catch (\Throwable $e) {
+                        // needs parameters, skip it
+                    }
+                }
+            }
+            return null;
+        };
+        $mysteryCreateUrl = $firstRoute(['mysteries.create']);
+        $capsuleCreateUrl = $firstRoute(['capsules.create', 'memories.create']);
+    @endphp
+
     @include('partials.navbar')
 
     <main class="wall-page" id="main">
@@ -50,17 +72,43 @@
 
 
             {{-- =========================
-                 Composer
+                 Greeting + composer
             ========================== --}}
             <section class="composer-section" aria-labelledby="composer-title">
-                <h1 id="composer-title">What's on your mind after class?</h1>
+                <h1 id="composer-title">{{ $greeting }}, {{ data_get(auth()->user(), 'username') ?? 'there' }}!</h1>
 
-                <form class="composer" method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data">
+                <form class="composer {{ $errors->any() || old('body') ? 'is-open' : '' }}" method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data">
                     @csrf
 
-                    <label class="sr-only" for="composer-body">Write something</label>
-                    <textarea id="composer-body" name="body" class="js-autosize" rows="3"
-                              maxlength="2000" placeholder="Write something...">{{ old('body') }}</textarea>
+                    <div class="composer-row">
+                        <span class="avatar avatar-md avatar-user" aria-hidden="true"><i class="fa-solid fa-user"></i></span>
+
+                        <label class="sr-only" for="composer-body">Write something</label>
+                        <textarea id="composer-body" name="body" class="js-autosize" rows="1"
+                                  maxlength="2000" placeholder="What's happening after class?">{{ old('body') }}</textarea>
+
+                        <div class="composer-icons">
+                            <input type="file" id="composer-image" class="sr-only" name="image" accept="image/*">
+                            <label for="composer-image" class="icon-tool" title="Add a photo">
+                                <i class="fa-regular fa-image" aria-hidden="true"></i>
+                                <span class="sr-only">Add a photo</span>
+                            </label>
+
+                            @if ($mysteryCreateUrl)
+                                <a href="{{ $mysteryCreateUrl }}" class="icon-tool" title="Post a mystery">
+                                    <i class="fa-solid fa-circle-question" aria-hidden="true"></i>
+                                    <span class="sr-only">Post a mystery</span>
+                                </a>
+                            @endif
+
+                            @if ($capsuleCreateUrl)
+                                <a href="{{ $capsuleCreateUrl }}" class="icon-tool" title="Make a memory capsule">
+                                    <i class="fa-solid fa-box-archive" aria-hidden="true"></i>
+                                    <span class="sr-only">Make a memory capsule</span>
+                                </a>
+                            @endif
+                        </div>
+                    </div>
 
                     <div class="image-preview" hidden>
                         <img src="" alt="Preview of the photo you selected">
@@ -70,14 +118,9 @@
                     </div>
                     <p class="composer-note" role="status" hidden></p>
 
+                    {{-- Shown once you click into the box or start typing --}}
                     <div class="composer-bar">
                         <div class="composer-tools">
-                            <input type="file" id="composer-image" class="sr-only" name="image" accept="image/*">
-                            <label for="composer-image" class="tool-btn">
-                                <i class="fa-regular fa-image" aria-hidden="true"></i>
-                                <span>Photo</span>
-                            </label>
-
                             <label class="select-wrap">
                                 <span class="sr-only">Category</span>
                                 <select name="category">

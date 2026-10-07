@@ -6,4 +6,5 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ asset('css/wall.css') }}">
 <link rel="stylesheet" href="{{ asset('css/sections.css') }}">
+<link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
 <script src="{{ asset('js/wall.js') }}" defer></script>

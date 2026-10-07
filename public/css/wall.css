@@ -42,6 +42,125 @@
     box-sizing: border-box;
 }
 
+/* =========================================
+   Cute Star Background
+========================================= */
+
+.star-background {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.star {
+    position: absolute;
+    display: block;
+    font-size: 13px;
+    opacity: 0.35;
+    animation: starTwinkle 3s ease-in-out infinite;
+}
+
+/* Star colors */
+.star:nth-child(3n) {
+    color: #ffd966;
+}
+
+.star:nth-child(3n + 1) {
+    color: #ffffff;
+}
+
+.star:nth-child(3n + 2) {
+    color: #b9dcff;
+}
+
+/* Positions */
+.star-1 {
+    top: 12%;
+    left: 7%;
+    animation-delay: 0s;
+}
+
+.star-2 {
+    top: 20%;
+    left: 22%;
+    animation-delay: 1.2s;
+}
+
+.star-3 {
+    top: 9%;
+    left: 45%;
+    animation-delay: 2s;
+}
+
+.star-4 {
+    top: 18%;
+    right: 18%;
+    animation-delay: 0.7s;
+}
+
+.star-5 {
+    top: 35%;
+    right: 7%;
+    animation-delay: 1.8s;
+}
+
+.star-6 {
+    top: 45%;
+    left: 8%;
+    animation-delay: 2.5s;
+}
+
+.star-7 {
+    top: 55%;
+    left: 25%;
+    animation-delay: 0.5s;
+}
+
+.star-8 {
+    top: 48%;
+    right: 25%;
+    animation-delay: 1.5s;
+}
+
+.star-9 {
+    top: 68%;
+    right: 10%;
+    animation-delay: 2.2s;
+}
+
+.star-10 {
+    top: 76%;
+    left: 12%;
+    animation-delay: 0.9s;
+}
+
+.star-11 {
+    top: 86%;
+    left: 48%;
+    animation-delay: 1.7s;
+}
+
+.star-12 {
+    top: 72%;
+    right: 38%;
+    animation-delay: 2.8s;
+}
+
+@keyframes starTwinkle {
+    0%,
+    100% {
+        opacity: 0.2;
+        transform: translateY(0) scale(0.8) rotate(0deg);
+    }
+
+    50% {
+        opacity: 0.9;
+        transform: translateY(-7px) scale(1.25) rotate(15deg);
+    }
+}
+
 [hidden] {
     display: none !important;
 }
