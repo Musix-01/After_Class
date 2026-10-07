@@ -9,12 +9,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\User;
+use App\Models\Notification;
 
 class Post extends Model
 {
     use HasFactory, SoftDeletes;
 
-    /** category key => label shown in the UI */
     public const CATEGORIES = [
         'general' => 'Just sharing',
         'story'   => 'Campus story',
@@ -39,20 +40,16 @@ class Post extends Model
         'is_pinned'    => 'boolean',
     ];
 
-    /* ---------- Relationships ---------- */
-
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    /** The moderator who removed this post (null when the author deleted it). */
     public function remover(): BelongsTo
     {
         return $this->belongsTo(User::class, 'removed_by');
     }
 
-    /** The post this one reposts (kept even if the original was deleted, so we can say so). */
     public function original(): BelongsTo
     {
         return $this->belongsTo(Post::class, 'original_post_id')->withTrashed();
@@ -78,20 +75,19 @@ class Post extends Model
         return $this->hasMany(Report::class);
     }
 
-    /* ---------- Helpers ---------- */
 
     public function isOwnedBy(?int $userId): bool
     {
         return $userId !== null && (int) $this->user_id === (int) $userId;
     }
 
-    /** Public URL of the uploaded photo (uses the current host, so it works on any dev URL). */
+
     public function getImageUrlAttribute(): ?string
     {
         return $this->image_path ? asset('storage/' . $this->image_path) : null;
     }
 
-    /** "Anonymous" when the author chose to hide their name. */
+
     public function getAuthorNameAttribute(): string
     {
         return $this->is_anonymous ? 'Anonymous' : ($this->user->name ?? 'Student');
@@ -102,33 +98,47 @@ class Post extends Model
         return $this->updated_at->gt($this->created_at->copy()->addSeconds(5));
     }
 
-    /** Hidden by a moderator (as opposed to deleted by its author). */
     public function wasRemovedByModerator(): bool
     {
         return $this->trashed() && $this->removed_by !== null;
     }
 
-    /** Take the post down, close its open reports and write the audit log. */
     public function removeByModerator(User $admin, string $reason): void
-    {
-        $this->forceFill(['removed_by' => $admin->id, 'removal_reason' => $reason])->save();
-        $this->delete(); // soft delete: reposts show "original removed", and it can be restored
+{
+    $this->forceFill([
+        'removed_by' => $admin->id,
+        'removal_reason' => $reason,
+    ])->save();
 
-        $this->reports()->where('status', 'open')->update([
-            'status'      => 'actioned',
-            'reviewed_by' => $admin->id,
-            'reviewed_at' => now(),
-        ]);
+    Notification::create([
+        'user_id' => $this->user_id,
+        'type' => 'post_removed',
+        'title' => 'Post Removed',
+        'message' => 'Your post was removed by an administrator. Reason: ' . $reason,
+        'post_id' => $this->id,
+        'is_read' => false,
+    ]);
 
-        ActivityLog::record(
-            'post.removed',
-            "Removed a post by {$this->user->name}: {$reason}",
-            $this,
-            ['author_id' => $this->user_id, 'reason' => $reason],
-            false,
-            $admin->id
-        );
-    }
+    $this->delete();
+
+    $this->reports()->where('status', 'open')->update([
+        'status'      => 'actioned',
+        'reviewed_by' => $admin->id,
+        'reviewed_at' => now(),
+    ]);
+
+    ActivityLog::record(
+        'post.removed',
+        "Removed a post by {$this->user->name}: {$reason}",
+        $this,
+        [
+            'author_id' => $this->user_id,
+            'reason' => $reason,
+        ],
+        false,
+        $admin->id
+    );
+}
 
     public function restoreByModerator(User $admin): void
     {
@@ -138,13 +148,6 @@ class Post extends Model
         ActivityLog::record('post.restored', "Restored a post by {$this->user->name}", $this, [], false, $admin->id);
     }
 
-    /* ---------- Scopes ---------- */
-
-    /**
-     * Everything the wall card needs, in as few queries as possible:
-     * author, original (for reposts), comments, plus like/comment/repost counts
-     * and whether the current user already liked the post.
-     */
     public function scopeForWall(Builder $query, int $userId): Builder
     {
         return $query

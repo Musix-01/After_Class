@@ -1,0 +1,240 @@
+/* =========================================
+   AFTER CLASS – SEARCH + STUDENT PAGES
+   Load after wall.css, sections.css and dashboard.css.
+   (Fallback colours are the dashboard theme, so it still
+   looks right if a variable is missing.)
+========================================= */
+
+/* ---------- Search bar ---------- */
+
+.search-form {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    margin-bottom: 24px;
+    padding: 10px 12px;
+
+    background: var(--app-dock, #102042);
+    border-radius: 22px;
+}
+
+.search-field {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+}
+
+.search-field > i {
+    position: absolute;
+    top: 50%;
+    left: 18px;
+    transform: translateY(-50%);
+
+    color: var(--moon-glow);
+    pointer-events: none;
+}
+
+.search-field input {
+    width: 100%;
+    min-height: 48px;
+    padding: 11px 18px 11px 46px;
+
+    color: #fff;
+    background: var(--app-pill, #243862);
+    border: 2px solid transparent;
+    border-radius: 26px;
+
+    font-family: 'Baloo 2', 'Trebuchet MS', sans-serif;
+    font-size: 1.02rem;
+    font-weight: 600;
+
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.search-field input::placeholder {
+    color: #e8ecf8;
+    opacity: 1;
+}
+
+.search-field input:focus,
+.search-field input:focus-visible {
+    background: #2b4272;
+    border-color: var(--accent-yellow);
+    box-shadow: 0 0 0 3px rgba(249, 215, 28, 0.25);
+    outline: none;
+}
+
+/* the browser's own little "x" would double up with our layout */
+.search-field input::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+}
+
+#search-results[aria-busy="true"] {
+    opacity: 0.55;
+    transition: opacity 0.15s ease;
+}
+
+/* ---------- Result list ---------- */
+
+.user-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.user-result {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    padding: 14px 18px;
+
+    background: var(--bg-sky);
+    border: 1px solid var(--border-light);
+    border-radius: 18px;
+
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.user-result:hover {
+    border-color: rgba(249, 215, 28, 0.45);
+    transform: translateY(-1px);
+}
+
+.user-result .avatar {
+    width: 46px;
+    height: 46px;
+    font-size: 1.15rem;
+}
+
+.user-body {
+    flex: 1;
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+    line-height: 1.25;
+}
+
+.user-name {
+    overflow: hidden;
+
+    color: var(--post-pink, #ffc1c1);
+    font-size: 1.15rem;
+    font-weight: 800;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.user-name mark {
+    padding: 0 2px;
+
+    color: var(--soft-yellow);
+    background: rgba(249, 215, 28, 0.22);
+    border-radius: 4px;
+}
+
+.user-meta {
+    color: var(--text-muted);
+    font-family: var(--body-font);
+    font-size: 0.8rem;
+}
+
+.user-go {
+    color: var(--moon-glow);
+    opacity: 0.6;
+}
+
+/* ---------- Student page ---------- */
+
+.profile-card {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+
+    margin-bottom: 34px;
+    padding: 24px;
+
+    background: var(--bg-sky);
+    border: 1px solid var(--border-light);
+    border-radius: 22px;
+    box-shadow: 0 6px 14px rgba(5, 12, 34, 0.45);
+}
+
+.profile-avatar {
+    width: 84px;
+    height: 84px;
+
+    font-size: 2.2rem;
+}
+
+.profile-info {
+    min-width: 0;
+}
+
+.profile-info h1 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 12px;
+
+    color: var(--title-gold, var(--soft-yellow));
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    line-height: 1.1;
+    overflow-wrap: anywhere;
+}
+
+.profile-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 18px;
+    margin-top: 6px;
+
+    color: var(--text-muted);
+    font-family: var(--body-font);
+    font-size: 0.9rem;
+}
+
+.profile-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.profile-actions:not(:empty) {
+    margin-top: 14px;
+}
+
+.profile-note {
+    margin-top: 10px;
+
+    color: var(--text-muted);
+    font-family: var(--body-font);
+    font-size: 0.8rem;
+}
+
+@media (max-width: 600px) {
+
+    .search-form {
+        padding: 8px;
+        gap: 8px;
+    }
+
+    .search-form .btn {
+        padding: 12px 14px;
+    }
+
+    .user-result {
+        padding: 12px 14px;
+        gap: 12px;
+    }
+
+    .profile-card {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+    }
+}

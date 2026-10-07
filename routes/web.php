@@ -15,6 +15,9 @@ use App\Http\Middleware\EnsureUserIsActive;
 use App\Http\Middleware\EnsureUserIsAdmin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\UserProfileController;
+use App\Http\Controllers\NotificationController;
 
 // ---------------------------------------------------------------
 // Public: login / register / logout
@@ -46,14 +49,28 @@ Route::post('/logout', function () {
     return redirect()->route('login');
 })->name('logout');
 
+Route::middleware('auth')->group(function () {
+    Route::get('/notifications', [NotificationController::class, 'index'])
+        ->name('notifications.index');
 
-// ---------------------------------------------------------------
-// Students (and admins): the Freedom Wall, memories and mysteries.
-// EnsureUserIsActive signs out suspended accounts on their next request.
-// ---------------------------------------------------------------
+    Route::post('/notifications/{id}/read', [NotificationController::class, 'read'])
+        ->name('notifications.read');
+});
+
 Route::middleware(['auth', EnsureUserIsActive::class])->group(function () {
 
     Route::get('/home', [HomeController::class, 'index'])->name('home');
+    
+    Route::get('/search', [SearchController::class, 'index'])
+        ->middleware('throttle:120,1')
+        ->name('search');
+
+    Route::get('/profile', [UserProfileController::class, 'me'])
+        ->name('profile');
+
+    Route::get('/users/{user}', [UserProfileController::class, 'show'])
+        ->whereNumber('user')
+        ->name('users.show');
 
     Route::get('/posts/{post}', [PostController::class, 'show'])
         ->whereNumber('post')

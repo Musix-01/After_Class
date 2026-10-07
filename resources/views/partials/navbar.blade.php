@@ -30,11 +30,8 @@
     $items = [
         ['Home',          'fa-house',             ['home']],
         ['Search',        'fa-magnifying-glass',  ['search', 'search.index']],
-        ['Community',     'fa-people-group',      ['community', 'community.index', 'communities.index']],
         ['Mysteries',     'fa-user-secret',       ['mysteries.index', 'mysteries']],
         ['Memories',      'fa-clock-rotate-left', ['capsules.index', 'memories.index', 'memories']],
-        ['Classroom',     'fa-comments',          ['classroom', 'classroom.index', 'classrooms.index']],
-        ['Saved',         'fa-bookmark',          ['saved', 'saved.index', 'bookmarks.index']],
         ['Notifications', 'fa-bell',              ['notifications.index', 'notifications']],
         ['Profile',       'fa-user',              ['profile', 'profile.show', 'profile.edit']],
         ['Settings',      'fa-gear',              ['settings', 'settings.index']],
@@ -81,6 +78,10 @@
     <div class="nav-actions">
         <a href="{{ $nav['Notifications']['url'] }}" class="bell-link" aria-label="Notifications">
             <i class="fa-solid fa-bell" aria-hidden="true"></i>
+
+            @if ($user && $user->notifications()->where('is_read', false)->exists())
+                <span class="notification-dot" aria-label="Unread notifications"></span>
+            @endif
         </a>
 
         <details class="profile-menu">
@@ -124,6 +125,8 @@
 
         @if ($adminRoute)
             <li>
+
+
                 <a href="{{ $adminUrl }}" class="side-link side-admin {{ request()->routeIs($adminRoute, 'admin.*') ? 'active' : '' }}">
                     <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
                     <span>Admin</span>

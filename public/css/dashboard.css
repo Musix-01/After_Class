@@ -358,9 +358,7 @@ body:has(.app-header) {
     border-radius: 26px;
 
     font-family: 'Baloo 2', 'Trebuchet MS', sans-serif;
-    font-size: 1.02rem;
     font-weight: 600;
-    line-height: 1.5;
 }
 
 .composer .composer-row textarea::placeholder {

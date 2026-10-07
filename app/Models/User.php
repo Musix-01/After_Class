@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Traits\HasAdminRole;
+use App\Models\Comment;
+use App\Models\Post;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\Notification;
 
 class User extends Authenticatable
 {
@@ -23,6 +27,21 @@ class User extends Authenticatable
         }
 
         return true;
+    }
+
+        public function notifications()
+    {
+        return $this->hasMany(Notification::class);
+    }
+
+        public function posts(): HasMany
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
     }
 
     public function scopeSuspended($query)
