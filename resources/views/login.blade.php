@@ -8,7 +8,7 @@
     .password-wrap button.toggle-pw {
         position: absolute;
         right: 14px;
-        top: 7px; /* (input height 46px - button height 32px) / 2 */
+        top: 7px;
         width: 32px;
         height: 32px;
         margin: 0;
