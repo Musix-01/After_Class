@@ -2,16 +2,6 @@
 
 @section('content')
 <style>
-    .comet-background {
-        position: fixed;
-        inset: 0;
-        width: 100vw;
-        height: 100vh;
-        overflow: hidden;
-        pointer-events: none;
-        z-index: 0;
-    }
-
     .password-wrap { position: relative; }
     .password-wrap input { padding-right: 52px; }
 
@@ -36,30 +26,23 @@
     .password-wrap button.toggle-pw:hover { background: none; color: #2f2f2f; }
     .password-wrap button.toggle-pw:focus-visible { outline: 2px solid #718f4e; }
 
+    .login-error { text-align: center; margin: 10px 0 14px; }
+
     .toggle-pw svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
     .toggle-pw .eye-off { display: none; }
     .toggle-pw.is-visible .eye-on { display: none; }
     .toggle-pw.is-visible .eye-off { display: block; }
 </style>
 
-<div class="comet-background">
-    <div class="comets">
-        <div class="comet" style="top: 15%; left: 25%; animation-delay: 1s; animation-duration: 4.5s;"></div>
-        <div class="comet" style="top: 10%; left: 80%; animation-delay: 2.2s; animation-duration: 3s;"></div>
-        <div class="comet" style="top: 55%; left: 20%; animation-delay: 3.5s; animation-duration: 4.8s;"></div>
-    </div>
-</div>
-
 <div class="Title">
     <h1> Welcome to After Class! </h1>
     <p> Preserve memories, share your campus stories, and investigate the little mysteries and experiences that happened around the campus.</p>
 </div>
-
 <div class="auth-box">
     <h1>Login</h1>
     <form method="POST" action="{{ route('login.submit') }}">
         @csrf
-        <input type="email" name="email" placeholder="Enter your email" required>
+        <input type="email" name="email" value="{{ old('email') }}" placeholder="Enter your email" required>
 
         <div class="password-wrap">
             <input type="password" name="password" id="password" placeholder="Enter your password" required>
@@ -78,6 +61,10 @@
                 </svg>
             </button>
         </div>
+
+        @if ($errors->any())
+            <div class="error-message login-error" role="alert">{{ $errors->first() }}</div>
+        @endif
 
         <input type="submit" value="Login">
     </form>
