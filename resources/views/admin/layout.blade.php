@@ -27,7 +27,6 @@
             ['Memories',      'fa-hourglass-half',    'admin.memories.index',       'admin/memories*',      null],
             ['Mysteries',     'fa-magnifying-glass',  'admin.mysteries.index',      'admin/mysteries*',     null],
             ['Announcements', 'fa-bullhorn',          'admin.announcements.index',  'admin/announcements*', null],
-            ['Analytics',     'fa-chart-simple',      'admin.analytics',            'admin/analytics*',     null],
             ['Activity log',  'fa-clock-rotate-left', 'admin.logs.index',           'admin/logs*',          null],
             ['Notifications', 'fa-bell',              'admin.notifications.index',  'admin/notifications*', $unread],
         ];

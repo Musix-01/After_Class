@@ -1,9 +1,4 @@
-/* =========================================
-   AFTER CLASS - LOGIN & REGISTER
-   Matches the home.css theme (midnight navy,
-   pencil yellow, moon glow).
-========================================= */
-
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&display=swap');
 :root {
     --bg-navy: #0d1b2a;
     --bg-sky: #1b263b;
@@ -16,23 +11,20 @@
     --leaf-green: #6f8f4d;
     --star-orange: #ffb347;
 
+    --input-gray: #dcdcdc;
+    --input-gray-text: #5c6168;
+
     --text-light: #f8f9fa;
     --text-dark: #212529;
 
     --border-light: rgba(255, 255, 255, 0.1);
     --white-soft: rgba(255, 255, 255, 0.06);
-    --error-text: #ff9b92;
+    --error-text: #f4a7a0;
 }
 
 * { box-sizing: border-box; }
 
 
-/* =========================================
-   PAGE
-   Scoped with :has() so these rules only apply
-   to pages that contain an .auth-box, and never
-   touch the home page (which also loads this file).
-========================================= */
 
 body:has(.auth-box) {
     margin: 0;
@@ -52,21 +44,22 @@ body:has(.auth-box) {
     color: var(--text-light);
     font-family: 'Baloo 2', 'Trebuchet MS', sans-serif;
 
-    /* moon glow top-right, faint pencil-yellow glow bottom-left */
+    /* same night sky as the dashboard: moon glow on top, a hint of pencil yellow below */
     background:
-        radial-gradient(circle at 86% 10%, rgba(205, 218, 253, 0.16), transparent 30%),
-        radial-gradient(circle at 6% 94%, rgba(249, 215, 28, 0.07), transparent 32%),
+        radial-gradient(900px 420px at 50% -80px, rgba(205, 218, 253, 0.12), transparent 70%),
+        radial-gradient(circle at 6% 94%, rgba(249, 215, 28, 0.08), transparent 32%),
+        radial-gradient(circle at 94% 88%, rgba(244, 167, 160, 0.07), transparent 30%),
         var(--bg-navy);
 }
 
-/* tiny stars */
+/* tiny stars in the palette colours */
 body:has(.auth-box)::before {
     content: "";
     position: fixed;
     inset: 0;
     z-index: 0;
     pointer-events: none;
-    opacity: 0.75;
+    opacity: 0.8;
 
     background-image:
         radial-gradient(1.5px 1.5px at 8% 16%,  var(--soft-yellow), transparent),
@@ -76,7 +69,31 @@ body:has(.auth-box)::before {
         radial-gradient(1.5px 1.5px at 74% 26%, var(--soft-yellow), transparent),
         radial-gradient(1px   1px   at 91% 64%, var(--moon-glow),   transparent),
         radial-gradient(2px   2px   at 52% 46%, var(--star-orange), transparent),
+        radial-gradient(1.5px 1.5px at 16% 88%, var(--eraser-pink), transparent),
+        radial-gradient(1.5px 1.5px at 84% 12%, var(--eraser-pink), transparent),
         radial-gradient(1px   1px   at 14% 48%, var(--soft-yellow), transparent);
+}
+
+/* crescent moon (pure CSS: the shadow is clipped by the transparent circle) */
+body:has(.auth-box)::after {
+    content: "";
+    position: fixed;
+    top: 44px;
+    right: 8vw;
+    z-index: 0;
+    pointer-events: none;
+
+    width: 78px;
+    height: 78px;
+    border-radius: 50%;
+
+    box-shadow: -18px 9px 0 0 var(--moon-glow);
+    filter: drop-shadow(0 0 16px rgba(205, 218, 253, 0.45));
+}
+
+::selection {
+    color: var(--bg-navy);
+    background: var(--accent-yellow);
 }
 
 
@@ -106,10 +123,28 @@ body:has(.auth-box)::before {
     letter-spacing: -2px;
 }
 
+/* a "pencil line" in the four category colours */
+.Title h1::after {
+    content: "";
+    display: block;
+    width: 112px;
+    height: 7px;
+    margin-top: 18px;
+
+    border-radius: 8px;
+    background: linear-gradient(
+        90deg,
+        var(--accent-yellow) 0 46%,
+        var(--eraser-pink)   46% 68%,
+        var(--moon-glow)     68% 86%,
+        var(--leaf-green)    86% 100%
+    );
+}
+
 .Title p {
     margin: 0;
 
-    color: rgba(248, 249, 250, 0.7);
+    color: rgba(248, 249, 250, 0.72);
     font-family: 'Trebuchet MS', sans-serif;
     font-size: 1.05rem;
     line-height: 1.7;
@@ -127,18 +162,37 @@ body:has(.auth-box)::before {
     flex: 0 1 420px;
     width: 100%;
     max-width: 420px;
-    padding: 2.25rem 2.25rem 1.75rem;
+    padding: 2.4rem 2.25rem 1.75rem;
 
     text-align: left;
 
     background: var(--bg-sky);
     border: 1px solid var(--border-light);
-    border-radius: 30px;
+    border-radius: 24px;
 
-    /* offset pencil-yellow shadow, echoing the logo tile on the home page */
+    /* the same offset pencil-yellow shadow as the dashboard composer */
     box-shadow:
-        8px 8px 0 rgba(249, 215, 28, 0.1),
+        6px 6px 0 rgba(249, 215, 28, 0.14),
         0 24px 60px rgba(0, 0, 0, 0.35);
+}
+
+/* coloured tab on top of the card */
+.auth-box::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: 28px;
+    right: 28px;
+    height: 6px;
+
+    border-radius: 0 0 8px 8px;
+    background: linear-gradient(
+        90deg,
+        var(--accent-yellow) 0 34%,
+        var(--eraser-pink)   34% 58%,
+        var(--moon-glow)     58% 80%,
+        var(--leaf-green)    80% 100%
+    );
 }
 
 .auth-box h1 {
@@ -158,12 +212,6 @@ body:has(.auth-box)::before {
 }
 
 
-/* =========================================
-   LABELS
-   (negative margin pulls the label close to its
-   input while the form keeps its normal gap)
-========================================= */
-
 .auth-box label {
     margin: 4px 0 -8px;
     padding-left: 4px;
@@ -178,10 +226,6 @@ body:has(.auth-box)::before {
 }
 
 
-/* =========================================
-   INPUTS
-========================================= */
-
 .auth-box input[type="text"],
 .auth-box input[type="email"],
 .auth-box input[type="password"],
@@ -189,15 +233,15 @@ body:has(.auth-box)::before {
     width: 100%;
     padding: 13px 16px;
 
-    color: var(--text-light);
-    color-scheme: dark; /* light calendar icon on the date picker */
+    color: var(--text-dark);
+    color-scheme: light;
 
-    background: var(--white-soft);
-    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: var(--input-gray);
+    border: 2px solid transparent;
     border-radius: 12px;
     outline: none;
 
-    font: inherit;
+    font-family: 'Trebuchet MS', 'Segoe UI', sans-serif;
     font-size: 1rem;
 
     transition:
@@ -207,44 +251,40 @@ body:has(.auth-box)::before {
 }
 
 .auth-box input::placeholder {
-    color: rgba(248, 249, 250, 0.4);
+    color: var(--input-gray-text);
 }
 
 .auth-box input[type="text"]:hover,
 .auth-box input[type="email"]:hover,
 .auth-box input[type="password"]:hover,
 .auth-box input[type="date"]:hover {
-    border-color: rgba(205, 218, 253, 0.35);
+    border-color: rgba(205, 218, 253, 0.55);
 }
 
 .auth-box input[type="text"]:focus,
 .auth-box input[type="email"]:focus,
 .auth-box input[type="password"]:focus,
 .auth-box input[type="date"]:focus {
-    background: rgba(255, 255, 255, 0.09);
+    background: #e8e8e8;
     border-color: var(--accent-yellow);
-    box-shadow: 0 0 0 3px rgba(249, 215, 28, 0.18);
+    box-shadow: 0 0 0 3px rgba(249, 215, 28, 0.25);
 }
 
-/* stop browser autofill from turning inputs white */
+/* keep browser autofill on the same grey */
 .auth-box input:-webkit-autofill,
 .auth-box input:-webkit-autofill:hover,
 .auth-box input:-webkit-autofill:focus {
-    -webkit-text-fill-color: var(--text-light);
-    caret-color: var(--text-light);
-    box-shadow: 0 0 0 1000px #26354f inset;
+    -webkit-text-fill-color: var(--text-dark);
+    caret-color: var(--text-dark);
+    box-shadow: 0 0 0 1000px var(--input-gray) inset;
     transition: background-color 9999s ease-out 0s;
 }
 
 
-/* =========================================
-   PASSWORD SHOW/HIDE BUTTON
-   Overrides the light-theme colours in the
-   login blade's inline <style>.
-========================================= */
-
 .auth-box .password-wrap input[type="password"],
-.auth-box .password-wrap input[type="text"] {
+.auth-box .password-wrap input[type="text"],
+.auth-box .pw-field input[type="password"],
+.auth-box .pw-field input[type="text"] {
     padding-right: 52px;
 }
 
@@ -252,25 +292,27 @@ body:has(.auth-box)::before {
     top: 50%;
     right: 10px;
     transform: translateY(-50%);
+}
 
-    color: rgba(248, 249, 250, 0.55);
+.auth-box .password-wrap button.toggle-pw,
+.auth-box .pw-eye {
+    color: #4a5160;
     transition: color 0.2s ease, background 0.2s ease;
 }
 
-.auth-box .password-wrap button.toggle-pw:hover {
-    color: var(--accent-yellow);
-    background: var(--white-soft);
+.auth-box .password-wrap button.toggle-pw:hover,
+.auth-box .pw-eye:hover {
+    color: var(--bg-navy);
+    background: rgba(13, 27, 42, 0.1);
 }
 
-.auth-box .password-wrap button.toggle-pw:focus-visible {
-    outline: 2px solid var(--accent-yellow);
+.auth-box .password-wrap button.toggle-pw:focus-visible,
+.auth-box .pw-eye:focus-visible {
+    outline: 2px solid var(--bg-navy);
     outline-offset: 1px;
 }
 
 
-/* =========================================
-   SUBMIT BUTTONS (login + register)
-========================================= */
 
 .auth-box input[type="submit"],
 .auth-box button[type="submit"] {
@@ -287,57 +329,59 @@ body:has(.auth-box)::before {
     font-weight: 800;
     cursor: pointer;
 
+    box-shadow: 4px 4px 0 rgba(249, 215, 28, 0.2);
+
     transition:
         background 0.2s ease,
-        transform 0.2s ease;
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
 .auth-box input[type="submit"]:hover,
 .auth-box button[type="submit"]:hover {
     background: var(--star-orange);
     transform: translateY(-2px);
+    box-shadow: 4px 6px 0 rgba(255, 179, 71, 0.25);
 }
 
 .auth-box input[type="submit"]:active,
 .auth-box button[type="submit"]:active {
     transform: translateY(0);
+    box-shadow: 2px 2px 0 rgba(249, 215, 28, 0.2);
 }
 
 .auth-box input[type="submit"]:focus-visible,
 .auth-box button[type="submit"]:focus-visible {
-    outline: 2px solid var(--moon-glow);
+    outline: 3px solid var(--moon-glow);
     outline-offset: 3px;
 }
 
 
-/* =========================================
-   ERRORS
-========================================= */
-
 .error-message {
     margin-top: -8px;
-    padding-left: 4px;
+    padding: 6px 10px;
 
     color: var(--error-text);
+    background: rgba(244, 167, 160, 0.12);
+    border-left: 3px solid var(--eraser-pink);
+    border-radius: 0 8px 8px 0;
+
+    font-family: 'Trebuchet MS', sans-serif;
     font-size: 0.85rem;
     line-height: 1.4;
     text-align: left;
 }
 
 
-/* =========================================
-   SWITCH LINK
-========================================= */
-
 .switch {
     margin: 22px 0 0;
     padding-top: 18px;
 
-    color: rgba(248, 249, 250, 0.65);
+    color: rgba(248, 249, 250, 0.68);
     font-size: 0.92rem;
     text-align: center;
 
-    border-top: 1px solid var(--border-light);
+    border-top: 2px dashed rgba(205, 218, 253, 0.22);
 }
 
 .switch a {
@@ -347,13 +391,11 @@ body:has(.auth-box)::before {
 }
 
 .switch a:hover {
+    color: var(--accent-yellow);
     text-decoration: underline;
 }
 
 
-/* =========================================
-   RESPONSIVE
-========================================= */
 
 @media (max-width: 900px) {
     body:has(.auth-box) {
@@ -366,8 +408,24 @@ body:has(.auth-box)::before {
         text-align: center;
     }
 
+    .Title h1::after {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
     .Title p {
         font-size: 1rem;
+    }
+}
+
+@media (max-width: 700px) {
+    /* keep the moon from sitting behind the card on narrow screens */
+    body:has(.auth-box)::after {
+        top: 18px;
+        right: 18px;
+        width: 46px;
+        height: 46px;
+        box-shadow: -10px 5px 0 0 var(--moon-glow);
     }
 }
 
@@ -377,10 +435,10 @@ body:has(.auth-box)::before {
     }
 
     .auth-box {
-        padding: 1.75rem 1.4rem 1.4rem;
-        border-radius: 24px;
+        padding: 2rem 1.4rem 1.4rem;
+        border-radius: 20px;
         box-shadow:
-            5px 5px 0 rgba(249, 215, 28, 0.1),
+            4px 4px 0 rgba(249, 215, 28, 0.14),
             0 18px 40px rgba(0, 0, 0, 0.35);
     }
 
@@ -398,4 +456,53 @@ body:has(.auth-box)::before {
     .auth-box button[type="submit"]:hover {
         transform: none;
     }
+}
+
+/* =========================================
+   COMET ANIMATION EFFECT
+========================================= */
+
+.sky {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(30deg, var(--blue-light), var(--blue-dark));
+  background: radial-gradient(circle at bottom, var(--blue-light), var(--blue-dark));
+  overflow: hidden;
+}
+
+.comets {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 150vw;
+  height: 150vh;
+  transform-origin: center;
+  transform: translate3D(-25vw, -25vh, 1px) rotate(125deg) scale(0.9);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.comet {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 3px;
+  height: 75vh;
+  background: linear-gradient(#fff, transparent);
+  animation: comet 3s ease-in-out infinite; /* changed to infinite so it keeps falling */
+}
+
+@keyframes comet {
+  0% {
+    opacity: 0;
+    transform: translateY(200%) scaleY(0);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(0) scaleY(1);
+  }
 }

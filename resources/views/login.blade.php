@@ -2,6 +2,16 @@
 
 @section('content')
 <style>
+    .comet-background {
+        position: fixed;
+        inset: 0;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        pointer-events: none;
+        z-index: 0;
+    }
+
     .password-wrap { position: relative; }
     .password-wrap input { padding-right: 52px; }
 
@@ -32,10 +42,19 @@
     .toggle-pw.is-visible .eye-off { display: block; }
 </style>
 
+<div class="comet-background">
+    <div class="comets">
+        <div class="comet" style="top: 15%; left: 25%; animation-delay: 1s; animation-duration: 4.5s;"></div>
+        <div class="comet" style="top: 10%; left: 80%; animation-delay: 2.2s; animation-duration: 3s;"></div>
+        <div class="comet" style="top: 55%; left: 20%; animation-delay: 3.5s; animation-duration: 4.8s;"></div>
+    </div>
+</div>
+
 <div class="Title">
     <h1> Welcome to After Class! </h1>
     <p> Preserve memories, share your campus stories, and investigate the little mysteries and experiences that happened around the campus.</p>
 </div>
+
 <div class="auth-box">
     <h1>Login</h1>
     <form method="POST" action="{{ route('login.submit') }}">
